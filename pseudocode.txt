@@ -1,0 +1,94 @@
+initialize bank to array of 0s
+initialize wheel to array with money values
+initialize phrase array with phrases for round
+initialize category array with corresponding categories
+
+for each round
+	set phrase to corresponding phrase in phrase array
+	set category to corresponding category in category array
+	initialize unguessed letters set to unique letters in phrase
+	initialize guessed letters to empty set
+
+	if first or second round
+		while round not over
+			for each player
+				if consonants remain
+					have player spin wheel
+					if landed on bankrupt
+						set player's bank to zero
+						move to next player's turn
+					else if landed on lose a turn
+						set to next player's turn
+					else landed on value
+						have player input a consonant
+						if already guessed or not a consonant
+							move to next player's turn
+						else if consonant not in phrase
+							add consonant to guessed letters
+							move to next player's turn
+						else consonant in phrase
+							add value to player's bank
+							remove consonant from unguessed letters
+							add consonant to guessed letters
+							if phrase complete
+								end round
+				
+				while vowels remain and player has enough money to buy a vowel
+					have player choose to buy a vowel, guess the phrase, or pass turn
+					if buy vowel
+						remove 250 from player's bank
+						if already guessed or not a vowel
+							move to next player's turn
+						else if vowel not in phrase
+							move to next player's turn
+						else vowel in word
+							remove vowel from unguessed letters
+							add vowel to guessed letters
+							continue buying vowels loop
+					else if guess phrase
+						have player input guess
+						if guess matches phrase
+							end round
+						else wrong guess
+							move to next player's turn
+					else pass turn
+						move to next player's turn
+				
+				if no vowels remain
+					have player choose to guess the phrase or pass turn
+					if guess phrase
+						have player input guess
+						if guess matches phrase
+							end round
+						else wrong guess
+							move to next player's turn
+					else pass turn
+						move to next player's turn
+	
+	else final round
+		set player to player with highest bank value
+		remove RSTLNE from unguessed letters
+		add RSTLNE to guessed letters
+		
+		for three consonant inputs
+			have player input consonant
+			if already guessed or not a consonant
+				reprompt
+			else
+				remove consonant from unguessed letters
+				add consonant to guessed letters
+				
+		have player input vowel
+		if already guessed or not a vowel
+			reprompt
+		else
+			remove vowel from unguessed letters
+			add vowel to guessed letters
+			
+		have player guess the phrase
+			if guess matches phrase
+				output winning amount
+				end game
+			else wrong guess
+				output correct answer
+				end game
